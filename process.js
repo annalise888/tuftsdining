@@ -33,12 +33,10 @@ http.createServer(function (req, res) {
 				
 				getFood(pdata['foodname'],coll);
 				
-				res.end();
-
 				setTimeout(function(){ db.close(); console.log("Success!");}, 5000);
 				
 			})
-			
+			res.end();
 		});
 	} else {
 		res.writeHead(200, {'Content-Type':'text/html'});
