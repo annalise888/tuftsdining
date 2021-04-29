@@ -1,0 +1,21 @@
+{
+  "name": "sample",
+  "version": "1.0.0",
+  "description": "my sample node app",
+  "main": "processform.js",
+  "scripts": {
+  "start": "node processform.js"
+},
+  "repository": {
+  "type": "git",
+  "url": ""
+},
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+  "url": ""
+},
+  "dependencies": {
+    "mongodb": "^3.6.0"
+  }
+}
