@@ -6,6 +6,23 @@ const mongo = require('mongodb');
 const MongoClient = mongo.MongoClient;
 const url = "mongodb+srv://annalisejacobson:annalise@cluster0.0y4mi.mongodb.net/tuftsdining?retryWrites=true&w=majority";
 
+function getFood(foodName, coll) {
+	var query = {food:{$regex : ".*" + foodName + ".*"}}
+	var str = "";
+	coll.find(query).toArray(function(err,items) {
+		if (err) {
+			str = "Error: " + err;
+		} else if (items.length == 0) {
+			str = "No food being served with that name.";
+		} else {
+			for (i=0; i < items.length; i++) {
+				str += (items[i].food + " is being served at " + items[i].hall + " on " + items[i].longdate + "<br>");
+			}
+		}
+	})
+	return str;
+}
+
 http.createServer(function (req, res) {
 	if (req.url == "/") {
 		file = 'form.html';
@@ -46,21 +63,5 @@ http.createServer(function (req, res) {
 	}
 }).listen(port);
 
-function getFood(foodName, coll) {
-	res.write("function");
-	var query = {food:{$regex : ".*" + foodName + ".*"}}
-	var str = "";
-	coll.find(query).toArray(function(err,items) {
-		if (err) {
-			str = "Error: " + err;
-		} else if (items.length == 0) {
-			str = "No food being served with that name.";
-		} else {
-			for (i=0; i < items.length; i++) {
-				str += (items[i].food + " is being served at " + items[i].hall + " on " + items[i].longdate + "<br>");
-			}
-		}
-	})
-	return str;
-}
+
 
