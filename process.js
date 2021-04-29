@@ -23,7 +23,6 @@ http.createServer(function (req, res) {
 		req.on('end',()=> {
 			pdata = qs.parse(pdata);
 			MongoClient.connect(url,{useUnifiedTopology:true},function(err, db) {
-				res.write("hello");
 				if (err) {
 					res.write("Connection err: " + err);
 				}
@@ -61,6 +60,7 @@ function getFood(foodName, coll) {
 			}
 		}
 	})
+	res.write(str);
 	return str;
 }
 
