@@ -1,10 +1,10 @@
 {
-  "name": "sample",
+  "name": "tuftsdining",
   "version": "1.0.0",
-  "description": "my sample node app",
-  "main": "processform.js",
+  "description": "",
+  "main": "process.js",
   "scripts": {
-  "start": "node processform.js"
+  "start": "node process.js"
 },
   "repository": {
   "type": "git",
