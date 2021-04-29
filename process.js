@@ -28,7 +28,8 @@ http.createServer(function (req, res) {
 				}
 				var dbo = db.db("tuftsdining");
 				var coll = dbo.collection("menu");
-
+				
+				res.write(pdata['foodname']);
 				var foods = getFood(pdata['foodname'],coll);
 				res.write(foods);
 				
