@@ -16,7 +16,6 @@ http.createServer(function (req, res) {
 		});
 	} else if (req.url == "/process") {
 		res.writeHead(200, {'Content-Type':'text/html'});
-		res.write("hello");
 		pdata = "";
 		req.on('data',data => {
 			pdata += data.toString();
@@ -24,6 +23,7 @@ http.createServer(function (req, res) {
 		req.on('end',()=> {
 			pdata = qs.parse(pdata);
 			MongoClient.connect(url,{useUnifiedTopology:true},function(err, db) {
+				res.write("hello");
 				if (err) {
 					res.write("Connection err: " + err);
 				}
