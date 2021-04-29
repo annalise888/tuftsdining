@@ -31,9 +31,11 @@ http.createServer(function (req, res) {
 
 				var foods = getFood(pdata['foodname'],coll);
 				res.write(foods);
-
-				setTimeout(function(){ db.close(); console.log("Success!");}, 1000);
+				
 				res.end();
+
+				setTimeout(function(){ db.close(); console.log("Success!");}, 5000);
+				
 			})
 			
 		});
@@ -46,18 +48,18 @@ http.createServer(function (req, res) {
 
 function getFood(foodName, coll) {
 	var query = {food:{$regex : ".*" + foodName + ".*"}}
+	var str = "";
 	coll.find(query).toArray(function(err,items) {
 		if (err) {
-			return ("Error: " + err);
+			str = "Error: " + err;
 		} else if (items.length == 0) {
-			return ("No food being served with that name.");
+			str = "No food being served with that name.";
 		} else {
-			var foods = "";
 			for (i=0; i < items.length; i++) {
-				foods += (items[i].food + " is being served at " + items[i].hall + " on " + items[i].longdate + "<br>");
+				str += (items[i].food + " is being served at " + items[i].hall + " on " + items[i].longdate + "<br>");
 			}
-			return foods;
 		}
 	})
+	return str;
 }
 
