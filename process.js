@@ -33,6 +33,7 @@ http.createServer(function (req, res) {
 				res.write(foods);
 
 				setTimeout(function(){ db.close(); console.log("Success!");}, 1000);
+				res.end();
 			})
 			
 		});
@@ -41,7 +42,6 @@ http.createServer(function (req, res) {
 		res.write("Unknown page request");
 		res.end();
 	}
-	res.end();
 }).listen(port);
 
 function getFood(foodName, coll) {
