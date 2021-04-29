@@ -47,7 +47,11 @@ http.createServer(function (req, res) {
 		res.end();
 	}
 	
-	function getFood(foodName, coll) {
+	
+	
+}).listen(port);
+
+function getFood(foodName, coll) {
 	var query = {food:{$regex : ".*" + foodName + ".*"}}
 	var str = "";
 	coll.find(query).toArray(function(err,items) {
@@ -63,8 +67,5 @@ http.createServer(function (req, res) {
 	})
 	return str;
 }
-	
-}).listen(port);
-
 
 
