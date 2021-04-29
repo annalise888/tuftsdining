@@ -32,6 +32,7 @@ http.createServer(function (req, res) {
 				var coll = dbo.collection("menu");
 				
 				var foods = getFood(pdata['foodname'],coll);
+				console.log(foods);
 				res.write(foods);
 				
 				res.end();
