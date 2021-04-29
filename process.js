@@ -30,6 +30,7 @@ http.createServer(function (req, res) {
 				var coll = dbo.collection("menu");
 
 				var foods = getFood(pdata['foodname'],coll);
+				res.write("yoy");
 				res.write(foods);
 				
 				res.end();
@@ -60,7 +61,6 @@ function getFood(foodName, coll) {
 			}
 		}
 	})
-	res.write(str);
 	return str;
 }
 
