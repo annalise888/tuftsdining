@@ -31,8 +31,7 @@ http.createServer(function (req, res) {
 				var dbo = db.db("tuftsdining");
 				var coll = dbo.collection("menu");
 				
-				var foods = getFood(pdata['foodname'],coll);
-				res.write(foods);
+				getFood(pdata['foodname'],coll);
 				
 				res.end();
 
@@ -66,7 +65,6 @@ function getFood(foodName, coll) {
 			}
 		}
 	})
-	return str;
 }
 
 
