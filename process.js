@@ -32,7 +32,6 @@ http.createServer(function (req, res) {
 				var coll = dbo.collection("menu");
 				
 				var foods = getFood(pdata['foodname'],coll);
-				console.log(foods);
 				res.write(foods);
 				
 				res.end();
@@ -53,6 +52,7 @@ http.createServer(function (req, res) {
 }).listen(port);
 
 function getFood(foodName, coll) {
+	console.log("function");
 	var query = {food:{$regex : ".*" + foodName + ".*"}}
 	var str = "";
 	coll.find(query).toArray(function(err,items) {
