@@ -23,15 +23,21 @@ http.createServer(function (req, res) {
 			pdata += data.toString();
 		});
 		req.on('end',()=> {
+			console.log("1");
 			pdata = qs.parse(pdata);
 			MongoClient.connect(url,{useUnifiedTopology:true},function(err, db) {
+				console.log("2");
 				if (err) {
+					console.log("err");
 					res.write("Connection err: " + err);
 				}
+				console.log("3");
 				var dbo = db.db("tuftsdining");
 				var coll = dbo.collection("menu");
+				console.log("4");
 				
 				getFood(pdata['foodname'],coll);
+				console.log("5");
 				
 				setTimeout(function(){ db.close(); console.log("Success!");}, 5000);
 				
