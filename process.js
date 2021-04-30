@@ -23,7 +23,7 @@ http.createServer(function (req, res) {
 			pdata += data.toString();
 		});
 		req.on('end',()=> {
-			console.log("1");
+			res.write("1");
 			pdata = qs.parse(pdata);
 			MongoClient.connect(url,{useUnifiedTopology:true},function(err, db) {
 				console.log("2");
