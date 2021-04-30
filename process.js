@@ -26,18 +26,18 @@ http.createServer(function (req, res) {
 			res.write("1");
 			pdata = qs.parse(pdata);
 			MongoClient.connect(url,{useUnifiedTopology:true},function(err, db) {
-				console.log("2");
+				res.write("2");
 				if (err) {
 					console.log("err");
 					res.write("Connection err: " + err);
 				}
-				console.log("3");
+				res.write("3");
 				var dbo = db.db("tuftsdining");
 				var coll = dbo.collection("menu");
-				console.log("4");
+				res.write("4");
 				
 				getFood(pdata['foodname'],coll);
-				console.log("5");
+				res.write("5");
 				
 				setTimeout(function(){ db.close(); console.log("Success!");}, 5000);
 				
@@ -55,7 +55,7 @@ http.createServer(function (req, res) {
 }).listen(port);
 
 function getFood(foodName, coll) {
-	console.log("function");
+	res.write("function");
 	var query = {food:{$regex : ".*" + foodName + ".*"}}
 	var str = "";
 	coll.find(query).toArray(function(err,items) {
