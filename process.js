@@ -3,7 +3,7 @@ var fs = require('fs');
 var qs = require('querystring');
 var port = process.env.PORT || 3000;
 const mongo = require('mongodb');
-const MongoClient = mongo.MongoClient;
+const { MongoClient } = mongo.MongoClient;
 const url = process.env.MONGODB_URI;
 
 
@@ -12,9 +12,9 @@ http.createServer(function (req, res) {
 	if (req.url == "/") {
 		file = 'form.html';
 		fs.readFile(file, function(err, txt) {
+			if (err) {return console.log(err); }
 			res.writeHead(200, {'Content-Type': 'text/html'});
 			res.write(txt);
-			res.end();
 		});
 	} else if (req.url == "/process") {
 		res.writeHead(200, {'Content-Type':'text/html'});
@@ -28,8 +28,7 @@ http.createServer(function (req, res) {
 			MongoClient.connect(url,{useUnifiedTopology:true},function(err, db) {
 				res.write("2");
 				if (err) {
-					console.log("err");
-					res.write("Connection err: " + err);
+					return console.log("err");
 				}
 				res.write("3");
 				var dbo = db.db("tuftsdining");
