@@ -54,21 +54,59 @@ http.createServer(function (req, res) {
 
 }).listen(port);
 
+//takes in a string of a food name and collection as a parameter and then searches menu databse for if that food is being served, if so print out when
 function getFood(foodName, coll) {
-	res.write("function");
-	var query = {food:{$regex : ".*" + foodName + ".*"}}
-	var str = "";
-	coll.find(query).toArray(function(err,items) {
-		if (err) {
-			str = "Error: " + err;
-		} else if (items.length == 0) {
-			str = "No food being served with that name.";
-		} else {
-			for (i=0; i < items.length; i++) {
-				str += (items[i].food + " is being served at " + items[i].hall + " on " + items[i].longdate + "<br>");
-			}
-		}
-	})
+    var query = {food:{$regex : ".*" + foodName + ".*"}}
+    
+    var sendstring = "";
+    coll.find(query).toArray(function(err,items) {
+        if (err) {
+           res.write("Error: " + err);
+        } else if (items.length == 0) {
+            res.write("No food being served with that name.");
+        } else {
+            for (i=0; i < items.length; i++) {
+                //console.log(items[i].food + " is being served at " + items[i].hall + " on " + items[i].longdate);
+                sendstring += (items[i].food + " is being served at " + items[i].hall + " on " + items[i].longdate + " \n") ;
+                //console.log(sendstring);
+            }
+        }
+        
+        res.write(sendstring);
+        sendmail(sendstring)
+
+    })
+    
 }
 
+var nodemailer = require('nodemailer');
+
+function sendmail(sendstring) {
+    
+    
+
+    var transporter = nodemailer.createTransport({
+      service: 'gmail',
+      auth: {
+        user: 'cpekowsky@gmail.com',
+        pass: 'stinkfart101'
+      }
+    });
+
+    var mailOptions = {
+      from: 'cpekowsky@gmail.com',
+      to: 'cpekowsky@gmail.com',
+      subject: 'foods being served',
+      text: sendstring
+    };
+
+    transporter.sendMail(mailOptions, function(error, info){
+      if (error) {
+        console.log(error);
+      } else {
+        console.log('Email sent: ' + info.response);
+      }
+    });
+    
+}
 
