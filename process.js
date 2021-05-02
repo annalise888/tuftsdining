@@ -50,7 +50,8 @@ http.createServer(function (req, res) {
 	}
 	
 	
-	
+	setTimeout(function(){res.end();}, 3000);
+
 }).listen(port);
 
 function getFood(foodName, coll) {
