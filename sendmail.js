@@ -1,5 +1,5 @@
 
-
+/*
 
 
 const mongo = require('mongodb');
@@ -74,4 +74,7 @@ function sendmail(sendstring) {
     });
     
 }
+
+
+*/
 
